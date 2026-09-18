@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://kswdc17c4i48"]
+
+[ext_resource type="Shader" uid="uid://b6ilb18gdhwe2" path="res://comet-shaders/src/shaders/gaussian_blur/gaussian_blur.gdshader" id="1_5cnel"]
+[ext_resource type="Script" uid="uid://bips2hs0dvqbo" path="res://comet-shaders/src/shaders/gaussian_blur/gaussian_blur.gd" id="1_cqjnp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
+resource_local_to_scene = true
+shader = ExtResource("1_5cnel")
+shader_parameter/screen_size = Vector2i(960, 540)
+shader_parameter/stdev = 3.0
+shader_parameter/y_direction = false
+shader_parameter/gcache = Array[float]([0.1329807601338109, 0.1299002641431894, 0.1210803599660278, 0.10769110143402937, 0.09139625072544216, 0.07401493943679947, 0.05719431224179371, 0.0421724412645878, 0.02967201830531716, 0.01992085070082625, 0.01276177605009073, 0.00780111722263201, 0.00455035138343402, 0.0025326519544792, 0.00134508129971173, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+shader_parameter/sample_size = 14
+shader_parameter/downsample = 0.649519052838329
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+resource_local_to_scene = true
+shader = ExtResource("1_5cnel")
+shader_parameter/screen_size = Vector2i(960, 540)
+shader_parameter/stdev = 3.0
+shader_parameter/y_direction = true
+shader_parameter/gcache = Array[float]([0.1329807601338109, 0.1299002641431894, 0.1210803599660278, 0.10769110143402937, 0.09139625072544216, 0.07401493943679947, 0.05719431224179371, 0.0421724412645878, 0.02967201830531716, 0.01992085070082625, 0.01276177605009073, 0.00780111722263201, 0.00455035138343402, 0.0025326519544792, 0.00134508129971173, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+shader_parameter/sample_size = 14
+shader_parameter/downsample = 0.649519052838329
+
+[node name="GaussianBlur" type="Control" unique_id=1802137046]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cqjnp")
+screen_size = Vector2i(960, 540)
+stdev = 3.0
+
+[node name="Pass1" type="CanvasLayer" parent="." unique_id=234651169]
+
+[node name="ColorRect" type="ColorRect" parent="Pass1" unique_id=79769044]
+material = SubResource("ShaderMaterial_o6xl0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pass2" type="CanvasLayer" parent="." unique_id=1887203740]
+
+[node name="ColorRect" type="ColorRect" parent="Pass2" unique_id=1104684387]
+material = SubResource("ShaderMaterial_tefeu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

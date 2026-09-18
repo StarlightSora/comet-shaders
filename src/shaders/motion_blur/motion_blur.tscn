@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dumwbtaymv7xs"]
+
+[ext_resource type="Shader" uid="uid://wmmif3mj7466" path="res://comet-shaders/src/shaders/motion_blur/motion_blur.gdshader" id="1_6jnda"]
+[ext_resource type="Script" uid="uid://dxi3p7jvn78ud" path="res://comet-shaders/src/shaders/motion_blur/motion_blur.gd" id="1_jpp7v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ye1u"]
+shader = ExtResource("1_6jnda")
+shader_parameter/screen_size = Vector2i(640, 360)
+shader_parameter/stdev = 0.0
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/sample_size = 1
+shader_parameter/downsample = inf
+shader_parameter/bidirectional = false
+
+[node name="MotionBlur" type="Control" unique_id=1274719847]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jpp7v")
+screen_size = Vector2i(960, 540)
+
+[node name="Pass1" type="CanvasLayer" parent="." unique_id=1468484029]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Pass1" unique_id=1954162369]
+material = SubResource("ShaderMaterial_2ye1u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
