@@ -1,5 +1,4 @@
 @tool
-class_name ColorCorrectionScreenShader
 extends Control
 
 enum LuminosityCoefficientStandard {

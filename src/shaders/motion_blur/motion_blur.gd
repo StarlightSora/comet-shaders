@@ -1,5 +1,4 @@
 @tool
-class_name MotionBlurScreenShader
 extends Control
 
 ## The layer property of the underlying CanvasLayers. This controls the draw order.
