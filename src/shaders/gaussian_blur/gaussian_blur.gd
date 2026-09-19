@@ -50,13 +50,13 @@ extends Control
 		if Engine.is_editor_hint() or loaded:
 			recalc_blur_cache()
 ## The target count of how many samples to take for dynamic downsampling. Higher values downsample less.
-@export_range(1, 24, 0.5, "prefer_slider", "exp") var dynamic_downsample_target: float = 8:
+@export_range(1, 24, 0.5, "prefer_slider", "exp") var dynamic_downsample_target: float = 6:
 	set(u):
 		dynamic_downsample_target = u
 		if Engine.is_editor_hint() or loaded:
 			recalc_blur_cache()
 ## The dynamic_downsample_target will be multiplied by stdev^this_property.
-@export_range(0.0, 1.0, 0.01) var dynamic_downsample_strong_compensation: float = 0.25:
+@export_range(0.0, 1.0, 0.01) var dynamic_downsample_strong_compensation: float = 0.5:
 	set(u):
 		dynamic_downsample_strong_compensation = u
 		if Engine.is_editor_hint() or loaded:
