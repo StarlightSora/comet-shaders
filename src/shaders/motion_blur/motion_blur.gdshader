@@ -3,7 +3,7 @@ shader_type canvas_item;
 const int cache_size = 64;
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear; // _nearest
-uniform ivec2 screen_size;
+uniform ivec2 screen_size = ivec2(640, 360);
 uniform float stdev;
 uniform vec2 direction;
 uniform int sample_size;

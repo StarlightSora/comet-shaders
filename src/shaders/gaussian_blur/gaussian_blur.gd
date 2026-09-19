@@ -85,8 +85,8 @@ func get_dyn_downsample() -> float:
 
 func recalc_blur_cache() -> void:
 	var safe_downsample: float = get_dyn_downsample()
-	gcache.clear()
-	gcache.resize(ScreenShaderGlobals.CACHE_SIZE_MAX)
+	#gcache.clear()
+	#gcache.resize(ScreenShaderGlobals.CACHE_SIZE_MAX)
 	for d in range(ScreenShaderGlobals.CACHE_SIZE_MAX):
 		var g := gaussf(d*min(safe_downsample, 1.0))
 		gcache[d] = g
@@ -126,6 +126,9 @@ func node_of(pass_layer: ScreenShaderGlobals.PassLayer) -> ColorRect:
 				return pass2
 	push_error("Unreachable code!")
 	return null
+
+func _init() -> void:
+	gcache.resize(ScreenShaderGlobals.CACHE_SIZE_MAX)
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():

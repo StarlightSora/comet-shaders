@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://c8fb1e64418i4"]
+
+[ext_resource type="Script" uid="uid://dd0t7hk1ar6xu" path="res://comet-shaders/src/shaders/radial_blur/radial_blur.gd" id="1_1nusq"]
+[ext_resource type="Shader" uid="uid://d1pnepuav0gl5" path="res://comet-shaders/src/shaders/radial_blur/radial_blur.gdshader" id="1_nms34"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i26sr"]
+shader = ExtResource("1_nms34")
+shader_parameter/stdev = 0.0
+shader_parameter/min_distance = 0.0
+shader_parameter/dynamic_downsample_target = 3.0
+shader_parameter/screen_size = Vector2i(640, 360)
+shader_parameter/inverted_blur_strength = false
+shader_parameter/inverted_blur_direction = false
+
+[node name="RadialBlur" type="Control" unique_id=1253334496]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1nusq")
+
+[node name="Pass1" type="CanvasLayer" parent="." unique_id=1732986780]
+
+[node name="ColorRect" type="ColorRect" parent="Pass1" unique_id=659677475]
+material = SubResource("ShaderMaterial_i26sr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

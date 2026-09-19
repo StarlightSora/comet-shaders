@@ -14,11 +14,7 @@ shader_parameter/luminosity_coefficient_standard = 0
 
 [node name="ColorCorrection" type="Control" unique_id=1027203285]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_mg2rx")
 
 [node name="Pass1" type="CanvasLayer" parent="." unique_id=1499990915]

@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://c6n0sad8ysyyt"]
 
 [ext_resource type="Texture2D" uid="uid://hdnivan5220u" path="res://comet-shaders/tests/pexels-csmned-6721154.jpg" id="1_bmb2k"]
+[ext_resource type="Texture2D" uid="uid://dubdy6tx5i1pn" path="res://comet-shaders/tests/pexels-orlovamaria-4947391.jpg" id="2_34rjl"]
 [ext_resource type="PackedScene" uid="uid://kswdc17c4i48" path="res://comet-shaders/src/shaders/gaussian_blur/gaussian_blur.tscn" id="2_adrv6"]
 [ext_resource type="PackedScene" uid="uid://dumwbtaymv7xs" path="res://comet-shaders/src/shaders/motion_blur/motion_blur.tscn" id="3_40gp8"]
 [ext_resource type="PackedScene" uid="uid://b6vj45f6xlba3" path="res://comet-shaders/src/shaders/color_correction/color_correction.tscn" id="4_4g8gu"]
+[ext_resource type="PackedScene" uid="uid://c8fb1e64418i4" path="res://comet-shaders/src/shaders/radial_blur/radial_blur.tscn" id="6_nks0w"]
 
 [node name="ScreenShaderTest" type="Control" unique_id=464996322]
 layout_mode = 3
@@ -32,6 +34,26 @@ texture = ExtResource("1_bmb2k")
 expand_mode = 3
 stretch_mode = 6
 
+[node name="TEST2" type="Control" parent="." unique_id=354269290]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="TEST2" unique_id=649601203]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_34rjl")
+expand_mode = 3
+stretch_mode = 6
+
 [node name="GaussianBlur" parent="." unique_id=1802137046 instance=ExtResource("2_adrv6")]
 layout_mode = 1
 layer = 20
@@ -45,4 +67,8 @@ angle = 1.1693705988362009
 
 [node name="ColorCorrection" parent="." unique_id=1027203285 instance=ExtResource("4_4g8gu")]
 layout_mode = 1
-layer = 40
+layer = 60
+
+[node name="RadialBlur" parent="." unique_id=1253334496 instance=ExtResource("6_nks0w")]
+layout_mode = 1
+stdev = 0.0

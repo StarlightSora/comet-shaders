@@ -38,7 +38,7 @@ enum LuminosityCoefficientStandard {
 		if Engine.is_editor_hint() or loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("brightness", u)
 ## Gamma. 1.0 is the normal gamma.
-@export_range(0.0, 2.5, 0.01) var gamma: float = 1.0:
+@export_range(0.0, 5.0, 0.02) var gamma: float = 1.0:
 	set(u):
 		gamma = u
 		if Engine.is_editor_hint() or loaded:

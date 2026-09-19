@@ -3,7 +3,7 @@ shader_type canvas_item;
 const int cache_size = 64;
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear; // _nearest
-uniform ivec2 screen_size;
+uniform ivec2 screen_size = ivec2(640, 360);
 uniform float stdev;
 uniform bool y_direction;
 uniform float gcache[cache_size];
@@ -24,7 +24,7 @@ void vertex() {
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	if (stdev <= 0.001) {
+	if (stdev < 0.001) {
 		COLOR = textureLod(screen_texture, SCREEN_UV, 0.0);
 	} else {
 		float gzero = gauss(0);

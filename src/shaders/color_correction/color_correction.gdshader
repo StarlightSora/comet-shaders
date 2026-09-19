@@ -23,13 +23,13 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	vec4 col = textureLod(screen_texture, SCREEN_UV, 0.0);
 	
-	if (hue != 0.0) {
+	if (abs(hue) < 0.001) {
 		vec3 proj = eulers_constant * dot(eulers_constant, col.rgb);
 		vec3 u = col.rgb - proj;
 		vec3 v = cross(eulers_constant, u);
 		col = vec4(u*cos(hue) + v*sin(hue) + proj, col.a);
 	}
-	if (saturation != 1.0) {
+	if (abs(saturation - 1.0) < 0.001) {
 		switch (luminosity_coefficient_standard) {
 			case 0: {
 				vec4 lum = vec4(dot(col, luma_coeffs_2020));
@@ -43,7 +43,7 @@ void fragment() {
 			}
 		}
 	}
-	if (contrast != 0.0) {
+	if (abs(contrast - 1.0) < 0.001) {
 		vec4 df = col - vec4(0.5, 0.5, 0.5, 1.0);
 		col += df * contrast;
 	}
