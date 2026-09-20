@@ -1,5 +1,6 @@
 @tool
 extends Control
+# For radial gaussian blur, use two RadialBlur scenes, with the relative blur angles perpendicular to each other.
 
 ## The layer property of the underlying CanvasLayers. This controls the draw order.
 @export var layer: int = 1:

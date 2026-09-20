@@ -4,21 +4,19 @@
 [ext_resource type="Shader" uid="uid://d1pnepuav0gl5" path="res://comet-shaders/src/shaders/radial_blur/radial_blur.gdshader" id="1_nms34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i26sr"]
+resource_local_to_scene = true
 shader = ExtResource("1_nms34")
-shader_parameter/stdev = 33.0
+shader_parameter/stdev = 16.0
 shader_parameter/min_distance = 0.0
 shader_parameter/dynamic_downsample_target = 3.0
 shader_parameter/screen_size = Vector2i(640, 360)
 shader_parameter/inverted_blur_strength = false
 shader_parameter/relative_blur_angle = 0.0
+shader_parameter/bidirectional = false
 
 [node name="RadialBlur" type="Control" unique_id=1253334496]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_1nusq")
 
 [node name="Pass1" type="CanvasLayer" parent="." unique_id=1732986780]

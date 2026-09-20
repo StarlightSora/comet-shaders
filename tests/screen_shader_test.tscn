@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dumwbtaymv7xs" path="res://comet-shaders/src/shaders/motion_blur/motion_blur.tscn" id="3_40gp8"]
 [ext_resource type="PackedScene" uid="uid://b6vj45f6xlba3" path="res://comet-shaders/src/shaders/color_correction/color_correction.tscn" id="4_4g8gu"]
 [ext_resource type="PackedScene" uid="uid://c8fb1e64418i4" path="res://comet-shaders/src/shaders/radial_blur/radial_blur.tscn" id="6_nks0w"]
+[ext_resource type="PackedScene" uid="uid://bhgp7dpoj43in" path="res://comet-shaders/src/shaders/chromatic_aberration/chromatic_aberration.tscn" id="7_hq1mk"]
 
 [node name="ScreenShaderTest" type="Control" unique_id=464996322]
 layout_mode = 3
@@ -68,8 +69,18 @@ angle = 1.1693705988362009
 [node name="ColorCorrection" parent="." unique_id=1027203285 instance=ExtResource("4_4g8gu")]
 layout_mode = 1
 
+[node name="ChromaticAberration" parent="." unique_id=260595583 instance=ExtResource("7_hq1mk")]
+layout_mode = 0
+layer = 100
+strength_r = 0.0
+strength_g = 0.0
+strength_b = 0.0
+radial_bias = 1.0
+radial_min_distance = 0.19999999999999996
+
 [node name="RadialBlur" parent="." unique_id=1253334496 instance=ExtResource("6_nks0w")]
-layout_mode = 1
-layer = 90
+layout_mode = 0
+layer = 10
 stdev = 0.0
+bidirectional = true
 relative_blur_angle = 2.0943951023931953

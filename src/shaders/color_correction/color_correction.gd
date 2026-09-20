@@ -24,8 +24,8 @@ enum LuminosityCoefficientStandard {
 		saturation = u
 		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("saturation", u)
-## Contrast. 0.0 is the normal contrast.
-@export_range(-1.0, 2.5, 0.01) var contrast: float = 0.0:
+## Contrast. 1.0 is the normal contrast.
+@export_range(-2.5, 2.5, 0.01) var contrast: float = 1.0:
 	set(u):
 		contrast = u
 		if loaded:
@@ -48,6 +48,19 @@ enum LuminosityCoefficientStandard {
 		luminosity_coefficient_standard = u
 		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("use_rec_2020", u as int)
+## Bias of the color correction to (or from) the edges of the screen. 0 to disable.
+@export_range(-1.0, 1.0, 0.01) var radial_bias: float = 0.0:
+	set(u):
+		radial_bias = u
+		if loaded:
+			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("radial_bias", u)
+## Minimum distance from the center (or edge, if radial_bias < 0.0) for color correction starts taking effect.
+## No-op if radial_bias == 0.0.
+@export_range(-1.0, 1.0, 0.01) var radial_min_distance: float = 0.0:
+	set(u):
+		radial_min_distance = u
+		if loaded:
+			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("radial_min_distance", u)
 
 var loaded: bool = false
 
@@ -67,4 +80,6 @@ func _ready() -> void:
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("contrast", contrast)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("saturation", saturation)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("luminosity_coefficient_standard", luminosity_coefficient_standard as int)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("radial_bias", radial_bias)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("radial_min_distance", radial_min_distance)
 	loaded = true

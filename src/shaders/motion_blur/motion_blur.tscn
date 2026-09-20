@@ -4,12 +4,13 @@
 [ext_resource type="Script" uid="uid://dxi3p7jvn78ud" path="res://comet-shaders/src/shaders/motion_blur/motion_blur.gd" id="1_jpp7v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2ye1u"]
+resource_local_to_scene = true
 shader = ExtResource("1_6jnda")
-shader_parameter/screen_size = Vector2i(640, 360)
-shader_parameter/stdev = 0.0
+shader_parameter/screen_size = Vector2i(960, 540)
+shader_parameter/stdev = 16.0
 shader_parameter/direction = Vector2(1, 0)
-shader_parameter/sample_size = 1
-shader_parameter/downsample = inf
+shader_parameter/sample_size = 30
+shader_parameter/downsample = 1.1547005383792517
 shader_parameter/bidirectional = false
 
 [node name="MotionBlur" type="Control" unique_id=1274719847]
