@@ -1,5 +1,14 @@
 @tool
 extends Control
+## Motion blur. The screen will be blurred in a straight line in a given direction.
+##
+## If you're getting the change in orientation per frame (i.e. camera movement) to feed into this instance,
+## remember to use quaternions instead of vectors or else you will experience unintended
+## side effects due to gimbal lock!
+##
+## Time complexity per pixel: O(n), however n is clamped to be 64 maximum (n is small).
+## 
+## Does not cache weights.
 
 ## The layer property of the underlying CanvasLayers. This controls the draw order.
 @export var layer: int = 1:

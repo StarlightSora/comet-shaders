@@ -2,9 +2,9 @@
 
 *Commonly needed screen shaders for Godot*
 
-Currently contains: Gaussian Blur, Motion Blur, Radial Blur, Color Correction
+Currently contains: Gaussian Blur, Motion Blur, Radial Blur, Color Correction, Chromatic Aberration
 
-Project is still heavily WIP.
+Documentation is available as editor tooltips.
 
 # Installation
 

@@ -1,5 +1,8 @@
 @tool
 extends Control
+## Chromatic aberration. The red, green and blue channels will be offset towards different directions.
+##
+## Time complexity per pixel: O(1).
 
 var loaded: bool = false
 

@@ -1,5 +1,8 @@
 @tool
 extends Control
+## Color correction. Hue, saturation, contrast, brightness, and gamma can be adjusted.
+##
+## Time complexity per pixel: O(1).
 
 enum LuminosityCoefficientStandard {
 	REC_2020,

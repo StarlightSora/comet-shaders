@@ -1,6 +1,14 @@
 @tool
 extends Control
-# For radial gaussian blur, use two RadialBlur scenes, with the relative blur angles perpendicular to each other.
+## Radial blur. Edges of the screen will be blurred much more than the center.
+##
+## The blur direction defaults to outward relative to the center.
+##
+## For radial gaussian blur, use two RadialBlur instances, with the relative blur angles perpendicular to each other.
+##
+## Time complexity per pixel: O(n), however n is clamped to be 64 maximum (n is small).
+## 
+## Does not cache weights.
 
 ## The layer property of the underlying CanvasLayers. This controls the draw order.
 @export var layer: int = 1:

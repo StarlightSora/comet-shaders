@@ -1,5 +1,17 @@
 @tool
 extends Control
+## Gaussian blur. The entire screen will be blurred uniformly.
+##
+## Time complexity per pixel: O(n), however n is clamped to be 64 maximum (n is small).
+##
+## For radial gaussian blur, use two RadialBlur instances,
+## with the relative blur angles perpendicular to each other.
+## 
+## *Does* cache weights. Size complexity: O(1) (64 floats).
+## 
+## If you do not need caching (if you change the stdev value every frame),
+## consider using two MotionBlur instances instead, with the
+## angle property being perpendicular with each other, and with bidirectional turned on.
 
 ## The layer property of the underlying CanvasLayers. This controls the draw order.
 @export var layer: int = 1:
