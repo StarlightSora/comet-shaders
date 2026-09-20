@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://twnaw6fencku"]
+
+[ext_resource type="Script" uid="uid://dwbubh2iof1av" path="res://comet-shaders/src/shaders/color_tint/color_tint.gd" id="1_25b7f"]
+[ext_resource type="Shader" uid="uid://dwpvckpj10qjj" path="res://comet-shaders/src/shaders/color_tint/color_tint.gdshader" id="1_aaebq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ye1u"]
+shader = ExtResource("1_aaebq")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/radial_bias = 0.0
+shader_parameter/radial_min_distance = 0.0
+
+[node name="ColorTint" type="Control" unique_id=1673650841]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_25b7f")
+
+[node name="Pass1" type="CanvasLayer" parent="." unique_id=886746107]
+
+[node name="ColorRect" type="ColorRect" parent="Pass1" unique_id=1157312173]
+material = SubResource("ShaderMaterial_2ye1u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

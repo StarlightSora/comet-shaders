@@ -77,6 +77,7 @@ func node_of(pass_layer: ScreenShaderGlobals.PassLayer) -> ColorRect:
 
 func _ready() -> void:
 	#if not Engine.is_editor_hint():
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).get_parent().layer = layer
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", stdev)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", screen_size)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("min_distance", min_distance)

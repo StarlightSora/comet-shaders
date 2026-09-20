@@ -145,6 +145,7 @@ func node_of(pass_layer: ScreenShaderGlobals.PassLayer) -> ColorRect:
 
 func _ready() -> void:
 	#if not Engine.is_editor_hint():
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).get_parent().layer = layer
 	direction = Vector2.from_angle(angle or 0)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", screen_size)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("direction", direction)

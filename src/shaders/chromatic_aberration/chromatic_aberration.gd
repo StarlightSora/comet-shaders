@@ -83,6 +83,7 @@ func node_of(pass_layer: ScreenShaderGlobals.PassLayer) -> ColorRect:
 	return null
 
 func _ready() -> void:
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).get_parent().layer = layer
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("velocity_r", velocity_r)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("velocity_g", velocity_g)
 	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("velocity_b", velocity_b)
