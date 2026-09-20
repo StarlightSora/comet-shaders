@@ -20,7 +20,7 @@ void vertex() {
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	if (stdev < 0.001) {
+	if (stdev <= 0.001) {
 		COLOR = textureLod(screen_texture, SCREEN_UV, 0.0);
 	} else {
 		float gzero = gauss(0);

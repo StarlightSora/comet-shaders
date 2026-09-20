@@ -5,7 +5,7 @@ extends Control
 @export var layer: int = 1:
 	set(u):
 		layer = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).get_parent().layer = u
 ## The reference screen resolution.
 ##
@@ -17,13 +17,13 @@ extends Control
 @export var screen_size: Vector2i = Vector2i(640, 360):
 	set(u):
 		screen_size = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", u)
 ## The standard deviation component of the motion blur. In laymen's terms, this is the intensity of the blur.
 @export_range(0.0, 64.0, 0.5) var stdev: float = 16.0:
 	set(u):
 		stdev = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", u)
 			recalc_downsample_factor()
 ## The angle of the motion blur. Objects will look as it's coming *to* this angle.
@@ -39,7 +39,7 @@ extends Control
 var direction: Vector2 = Vector2.RIGHT:
 	set(u):
 		direction = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("direction", u)
 ## The velocity of the motion blur. This should *not* be normalized.
 ## 
@@ -54,44 +54,44 @@ var velocity: Vector2 = Vector2.RIGHT * 16.0:
 @export_range(0.0001, 1.0, 0.00005, "exp") var min_weight: float = 0.0025:
 	set(u):
 		min_weight = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			recalc_downsample_factor()
 ## true if motion blur also applies to the opposite direction.
 @export var bidirectional: bool = false:
 	set(u):
 		bidirectional = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("bidirectional", u)
 ## true if using dynamic downsampling, otherwise static downsampling.
 @export var dynamic_downsampling: bool = true:
 	set(u):
 		dynamic_downsampling = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			recalc_downsample_factor()
 ## Static downsample factor. Higher values downsample more. Values below 1.0 will upsample.
 @export_range(0.2, 32.0, 0.1, "exp") var static_downsample: float = 1.0:
 	set(u):
 		static_downsample = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			recalc_downsample_factor()
 ## The target count of how many samples to take for dynamic downsampling. Higher values downsample less.
 @export_range(1, 24, 0.5, "prefer_slider", "exp") var dynamic_downsample_target: float = 6:
 	set(u):
 		dynamic_downsample_target = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			recalc_downsample_factor()
 ## The dynamic_downsample_target will be multiplied by stdev^this_property.
 @export_range(0.0, 1.0, 0.01) var dynamic_downsample_strong_compensation: float = 0.5:
 	set(u):
 		dynamic_downsample_strong_compensation = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			recalc_downsample_factor()
 ## The minimum downsample factor.
 ## Higher values produce lower quality at low stdev, but perform slightly better.
 @export_range(0.1, 8.0, 0.1, "exp") var dynamic_downsample_min: float = 0.5:
 	set(u):
 		dynamic_downsample_min = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			recalc_downsample_factor()
 ## If the scan size overflow warning should be suppressed.
 @export var ignore_scan_overflow_warning: bool = false
@@ -128,23 +128,18 @@ func gaussf(df: float) -> float:
 
 @onready var pass1 = $Pass1/ColorRect
 func node_of(pass_layer: ScreenShaderGlobals.PassLayer) -> ColorRect:
-	if Engine.is_editor_hint():
-		match pass_layer:
-			ScreenShaderGlobals.PassLayer.FIRST:
-				return self.get_node(^"Pass1/ColorRect")
-	else:
-		match pass_layer:
-			ScreenShaderGlobals.PassLayer.FIRST:
-				return pass1
+	match pass_layer:
+		ScreenShaderGlobals.PassLayer.FIRST:
+			return pass1
 	push_error("Unreachable code!")
 	return null
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		direction = Vector2.from_angle(angle or 0)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", screen_size)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("direction", direction)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", stdev)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("bidirectional", bidirectional)
-		recalc_downsample_factor()
-		loaded = true
+	#if not Engine.is_editor_hint():
+	direction = Vector2.from_angle(angle or 0)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", screen_size)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("direction", direction)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", stdev)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("bidirectional", bidirectional)
+	recalc_downsample_factor()
+	loaded = true

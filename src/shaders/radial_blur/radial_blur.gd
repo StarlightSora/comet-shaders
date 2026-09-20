@@ -5,7 +5,7 @@ extends Control
 @export var layer: int = 1:
 	set(u):
 		layer = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).get_parent().layer = u
 ## The reference screen resolution.
 ##
@@ -17,60 +17,62 @@ extends Control
 @export var screen_size: Vector2i = Vector2i(640, 360):
 	set(u):
 		screen_size = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", u)
 ## The standard deviation component of the motion blur. In laymen's terms, this is the intensity of the blur.
 @export_range(0.0, 64.0, 0.5) var stdev: float = 16.0:
 	set(u):
 		stdev = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", u)
 ## Minimum distance from the center for the blur to start taking effect.
 @export_range(-1.0, 1.0, 0.01) var min_distance: float = 0.0:
 	set(u):
 		min_distance = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("min_distance", u)
 ## true if the center should be the blurrier part, not the edges.
 @export var inverted_blur_strength: bool = false:
 	set(u):
 		inverted_blur_strength = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("inverted_blur_strength", u)
-## true if the blur direction should go inward, not outward.
-@export var inverted_blur_direction: bool = false:
+## true if radial blur also applies to the opposite direction.
+@export var bidirectional: bool = false:
 	set(u):
-		inverted_blur_direction = u
-		if Engine.is_editor_hint() or loaded:
-			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("inverted_blur_direction", u)
+		bidirectional = u
+		if loaded:
+			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("bidirectional", u)
+## Direction of the blur, relative to the center. 0 indicates it will blur outward.
+@export_range(0.0, 360.0, 1.0, "radians_as_degrees") var relative_blur_angle: float = 0.0:
+	set(u):
+		relative_blur_angle = u
+		if loaded:
+			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("relative_blur_angle", u)
 ## The target count of how many samples to take for dynamic downsampling. Higher values downsample less.
 @export_range(0.5, 8, 0.5, "prefer_slider", "exp") var dynamic_downsample_target: float = 3.0:
 	set(u):
 		dynamic_downsample_target = u
-		if Engine.is_editor_hint() or loaded:
+		if loaded:
 			node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("dynamic_downsample_target", u)
 
 var loaded: bool = false
 
 @onready var pass1 = $Pass1/ColorRect
 func node_of(pass_layer: ScreenShaderGlobals.PassLayer) -> ColorRect:
-	if Engine.is_editor_hint():
-		match pass_layer:
-			ScreenShaderGlobals.PassLayer.FIRST:
-				return self.get_node(^"Pass1/ColorRect")
-	else:
-		match pass_layer:
-			ScreenShaderGlobals.PassLayer.FIRST:
-				return pass1
+	match pass_layer:
+		ScreenShaderGlobals.PassLayer.FIRST:
+			return pass1
 	push_error("Unreachable code!")
 	return null
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", stdev)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", screen_size)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("min_distance", min_distance)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("dynamic_downsample_target", dynamic_downsample_target)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("inverted_blur_strength", inverted_blur_strength)
-		node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("inverted_blur_direction", inverted_blur_direction)
-		loaded = true
+	#if not Engine.is_editor_hint():
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("stdev", stdev)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("screen_size", screen_size)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("min_distance", min_distance)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("dynamic_downsample_target", dynamic_downsample_target)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("inverted_blur_strength", inverted_blur_strength)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("relative_blur_angle", relative_blur_angle)
+	node_of(ScreenShaderGlobals.PassLayer.FIRST).material.set_shader_parameter("bidirectional", bidirectional)
+	loaded = true

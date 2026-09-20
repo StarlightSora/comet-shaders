@@ -5,12 +5,12 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i26sr"]
 shader = ExtResource("1_nms34")
-shader_parameter/stdev = 0.0
+shader_parameter/stdev = 33.0
 shader_parameter/min_distance = 0.0
 shader_parameter/dynamic_downsample_target = 3.0
 shader_parameter/screen_size = Vector2i(640, 360)
 shader_parameter/inverted_blur_strength = false
-shader_parameter/inverted_blur_direction = false
+shader_parameter/relative_blur_angle = 0.0
 
 [node name="RadialBlur" type="Control" unique_id=1253334496]
 layout_mode = 3

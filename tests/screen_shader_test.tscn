@@ -67,8 +67,9 @@ angle = 1.1693705988362009
 
 [node name="ColorCorrection" parent="." unique_id=1027203285 instance=ExtResource("4_4g8gu")]
 layout_mode = 1
-layer = 60
 
 [node name="RadialBlur" parent="." unique_id=1253334496 instance=ExtResource("6_nks0w")]
 layout_mode = 1
+layer = 90
 stdev = 0.0
+relative_blur_angle = 2.0943951023931953

@@ -6,7 +6,8 @@ uniform float min_distance = 0.0;
 uniform float dynamic_downsample_target = 4.0;
 uniform ivec2 screen_size = ivec2(640, 360);
 uniform bool inverted_blur_strength = false;
-uniform bool inverted_blur_direction = false;
+uniform float relative_blur_angle = 0.0;
+uniform bool bidirectional = false;
 
 float gauss_sd(float d, float sd) {
 	return exp(-d*d/(2.0 * sd * sd) ) / sqrt(2.0 * PI * sd * sd);
@@ -27,12 +28,12 @@ void vertex() {
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	if (stdev < 0.001) {
+	if (stdev <= 0.001) {
 		COLOR = textureLod(screen_texture, SCREEN_UV, 0.0);
 	} else {
 		vec2 uv_diff = (vec2(0.5) - SCREEN_UV);
-		if (inverted_blur_direction) {
-			uv_diff = -uv_diff;
+		if (abs(relative_blur_angle) >= 0.001) {
+			uv_diff *= mat2(vec2(cos(relative_blur_angle), -sin(relative_blur_angle)), vec2(sin(relative_blur_angle), cos(relative_blur_angle)));
 		}
 		float uv_len;
 		if (inverted_blur_strength) {
@@ -50,6 +51,10 @@ void fragment() {
 			float weight = gauss_sd(adjusted_dx, effective_sd);
 			col += textureLod(screen_texture, SCREEN_UV + (vec2(uv_diff) * adjusted_dx / vec2(screen_size)), 0.0) * weight;
 			acu += weight;
+			if (bidirectional) {
+				col += textureLod(screen_texture, SCREEN_UV - (vec2(uv_diff) * adjusted_dx / vec2(screen_size)), 0.0) * weight;
+			acu += weight;
+			}
 		}
 		
 		COLOR = col / acu;
