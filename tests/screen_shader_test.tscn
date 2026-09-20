@@ -75,7 +75,6 @@ layer = 100
 strength_r = 0.0
 strength_g = 0.0
 strength_b = 0.0
-radial_bias = 1.0
 radial_min_distance = 0.19999999999999996
 
 [node name="RadialBlur" parent="." unique_id=1253334496 instance=ExtResource("6_nks0w")]
